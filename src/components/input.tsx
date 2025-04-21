@@ -1,27 +1,28 @@
-// components/CityCodeLookup.jsx
 'use client'
 
 import { useState, useEffect } from 'react'
 import PelakLogo from '../../public/pelak.svg'
 import BackspaceIcon from '../../public/backspace.svg'
-import { Lalezar } from 'next/font/google'
+// import { Lalezar } from 'next/font/google'
 import Image from "next/image";
 import toPersianNum from '@/utils/toPersianNum';
+import { cityCodesObjectOfTuples } from '@/types/types'
 
 export default function CityCodeLookup() {
 
     const [numbers, setNumbers] = useState(['', ''])
     const [activeInput, setActiveInput] = useState(0)
-    const [matchedCity, setMatchedCity] = useState(null)
-    const [cityCodes, setCityCodes] = useState({})
+    const [matchedCity, setMatchedCity] = useState<string>('')
+    const [cityCodes, setCityCodes] = useState<cityCodesObjectOfTuples>()
     const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(false)
 
     // const lalezar = Lalezar({ subsets: ['arabic'] })
 
     // Load city codes from external JSON file
     useEffect(() => {
         const loadCityCodes = async () => {
+
             try {
                 setIsLoading(true)
                 const response = await fetch('/city-codes.json')
@@ -30,13 +31,21 @@ export default function CityCodeLookup() {
                     throw new Error(`Failed to load city codes: ${response.status}`)
                 }
 
-                const data = await response.json()
+                const data: cityCodesObjectOfTuples = await response.json()
+                console.log(data)
                 setCityCodes(data)
 
-            } catch (err) {
+            }
+
+            catch (err: unknown) {
                 console.error('Error loading city codes:', err)
-                setError(err.message)
-            } finally {
+                if (typeof (err) === "string") {
+                    setError(true)
+                    console.log(error)
+                }
+            }
+
+            finally {
                 setIsLoading(false)
             }
         }
@@ -45,9 +54,9 @@ export default function CityCodeLookup() {
     }, [])
 
     // Function to check if a city code exists in our mapping
-    const lookupCity = (code: string) => {
-        if (cityCodes[code]) {
-            return cityCodes[code]
+    const lookupCity = (code: number) => {
+        if (cityCodes![code]) {
+            return cityCodes![code]
         }
         return null
     }
@@ -55,11 +64,15 @@ export default function CityCodeLookup() {
     // Whenever numbers change, check if we have a complete code to look up
     useEffect(() => {
         const completeCode = numbers.join('')
+
         if (completeCode.length === 2) {
-            const city = lookupCity(completeCode)
-            setMatchedCity(city)
+            const city = lookupCity(parseInt(completeCode)) as string
+
+            if (city) {
+                setMatchedCity(city)
+            }
         } else {
-            setMatchedCity(null)
+            setMatchedCity('')
         }
     }, [numbers, cityCodes])
 
@@ -93,7 +106,7 @@ export default function CityCodeLookup() {
     const handleClear = () => {
         setNumbers(['', ''])
         setActiveInput(0)
-        setMatchedCity(null)
+        setMatchedCity('')
     }
 
     const handleInputFocus = (index: number) => {
@@ -178,7 +191,7 @@ export default function CityCodeLookup() {
             </div>
 
             {/* Result display */}
-            <div className="mt-6 p-4 bg-gray-50 rounded-md w-full">
+            <div className="text-black mt-6 p-4 bg-gray-50 rounded-md w-full">
                 <h3 className="text-lg font-medium mb-2">City Lookup Result</h3>
                 <div className="flex flex-col">
                     <div className="mb-2">
@@ -188,7 +201,7 @@ export default function CityCodeLookup() {
                     <div>
                         <span className="text-sm font-medium">City:</span>
                         {matchedCity ? (
-                            <span className="ml-2 text-lg font-bold text-green-600">{matchedCity}</span>
+                            <span className="ml-2 text-lg font-bold text-blue-600">{matchedCity}</span>
                         ) : numbers.join('').length === 2 ? (
                             <span className="ml-2 text-lg font-bold text-red-500">City not found</span>
                         ) : (
@@ -199,13 +212,13 @@ export default function CityCodeLookup() {
             </div>
 
             {/* Available city codes */}
-            <div className="mt-6 p-4 bg-gray-50 rounded-md w-full">
+            <div className="text-black mt-6 p-4 bg-gray-50 rounded-md w-full">
                 <details>
                     <summary className="text-lg font-medium mb-2 cursor-pointer">
                         Available City Codes
                     </summary>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-2">
-                        {Object.entries(cityCodes).map(([code, city]) => (
+                        {Object.entries(cityCodes as cityCodesObjectOfTuples).map(([code, city]) => (
                             <div key={code} className="text-sm">
                                 <span className="font-bold">{code}:</span> {city}
                             </div>
