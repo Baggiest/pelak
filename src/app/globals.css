@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
 @import "tailwindcss";
+
 
 :root {
   --background: #ffffff;
@@ -10,6 +12,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-lalezar: "Lalezar", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
