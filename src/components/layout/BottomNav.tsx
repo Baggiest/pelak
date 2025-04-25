@@ -17,7 +17,7 @@ export default function BottomNav() {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-4 px-4 flex justify-around items-center h-24 z-50">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-400 py-4 px-4 flex justify-around items-start h-24 z-50">
       {navItems.map((item) => {
         const isActive = pathname === item.path
 
@@ -25,7 +25,7 @@ export default function BottomNav() {
           <Link
             key={item.path}
             href={item.path}
-            className={`flex flex-col items-center justify-center w-1/3 py-2 ${isActive ? 'text-blue-600' : 'text-gray-500'
+            className={`flex flex-col items-center justify-start w-1/3 py-0  ${isActive ? 'text-blue-600' : 'text-gray-500'
               }`}
           >
             <div className={`relative ${isActive ? 'active-icon' : ''}`}>

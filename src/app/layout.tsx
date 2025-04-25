@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     maximumScale: 1,
     userScalable: false,
   },
-  themeColor: "#000000",
+  themeColor: "#ffffff",
   icons: {
     apple: [
       { url: "/icons/icon-180.png", sizes: "180x180", type: "image/png" },
@@ -54,7 +54,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Pelak" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#ffffff" />
         <link rel="apple-touch-icon" href="/icons/icon-180.png" />
       </head>
       <body
