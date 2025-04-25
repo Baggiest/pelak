@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import PelakLogo from '../../public/pelak.svg'
-import BackspaceIcon from '../../public/backspace.svg'
-import PelakIran from '../../public/pelak-iran.svg'
+import PelakLogo from '../../../public/pelak.svg'
+import BackspaceIcon from '../../../public/backspace.svg'
+import PelakIran from '../../../public/pelak-iran.svg'
 // import { Lalezar } from 'next/font/google'
 import Image from "next/image";
 import toPersianNum from '@/utils/toPersianNum';

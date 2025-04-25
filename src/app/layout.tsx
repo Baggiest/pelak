@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css";
-// import { InstallPrompt } from "@/components/pwa";
+import { InstallPrompt } from "@/components/pwa";
+import AppLayout from "@/components/layout/AppLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,9 +30,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <AppLayout>
+          {children}
+        </AppLayout>
         <Analytics />
-        {/* <InstallPrompt /> */}
+        <InstallPrompt />
       </body>
     </html>
   );

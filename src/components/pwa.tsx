@@ -19,21 +19,15 @@ export function InstallPrompt() {
     }
 
     return (
-        <div className="text-black text-center font-extrabold">
-            <h3>Install App</h3>
-            <button>Add to Home Screen</button>
+        <div className="text-black p-8 text-center font-extrabold">
             {isIOS && (
                 <p>
-                    To install this app on your iOS device, tap the share button
-                    <span role="img" aria-label="share icon">
-                        {' '}
-                        ⎋{' '}
-                    </span>
-                    and then &quot;Add to Home Screen&quot;
-                    <span role="img" aria-label="plus icon">
-                        {' '}
-                        ➕{' '}
-                    </span>.
+                    بذار هوم اسکرین آیفونت مثل اپ دم دستت باشه
+                </p>
+            )}
+            {!isIOS && (
+                <p>
+                    بذار هوم اسکرین گوشیت که مثل اپ دم دستت باشه
                 </p>
             )}
         </div>
