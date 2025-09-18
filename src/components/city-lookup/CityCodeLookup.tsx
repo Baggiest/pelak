@@ -117,7 +117,7 @@ export default function CityCodeLookup() {
     if (isLoading) {
         return (
             <div className="flex flex-col items-center justify-center p-6 h-64">
-                <div className="text-xl font-medium">Loading city data...</div>
+                <div className="text-xl font-medium ">Loading city data...</div>
             </div>
         )
     }
@@ -156,7 +156,7 @@ export default function CityCodeLookup() {
                     </div>
                 ))}
             </div>
-            <span className=''>
+            <span className='text-center'>
                 {matchedCity ? (
                     <span className="ml-2 text-2xl font-bold text-black">{matchedCity}</span>
                 ) : numbers.join('').length === 2 ? (
